@@ -18,7 +18,9 @@ def debug(verbose = False, level = 0):
             - return 
                 - o resultado da execução
             """
-            print("Debug")
+
+            print(f"Debug from {__name__}")
+
             start_t = datetime.now()
             func_result = func(start_t, *args, **kwargs)
             final_t = datetime.now() - start_t
@@ -35,4 +37,5 @@ def debug(verbose = False, level = 0):
                 print(f"Tempo total: {final_t.total_seconds()}\n")
             return func_result
         return decorator
+    
     return intermediaria

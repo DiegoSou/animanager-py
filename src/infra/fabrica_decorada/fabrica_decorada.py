@@ -2,19 +2,17 @@ from functools import wraps
 from src.infra.assistente_de_chamada import AssistentCall as call
 
 class FactoryD:
-    """
-    Classe decoradora Factory_d
-    - métodos:
-        - __init__: define uma instância de D e constrói uma instância de C, é o construtor
-        - __call__: executa métodos com a instância de C e salva no mapeamento 
-                    (cria um histórico de execução para cada método que a fábrica chamou)
-    """
+    """Classe decoradora FactoryD"""
+
     def __init__(self, name):
+        """Construtor para definir uma instância da Factory"""
         self.name = name
         self.mapping = {}
         self.debug_mode = False
 
     def __call__(self, func):
+        """Decorador da factory para registrar histórico de execução do método executado"""
+
         @call(self.name, self.debug_mode)
         @wraps(func)
         def registry_response(time, *args, **kwargs):
@@ -25,8 +23,10 @@ class FactoryD:
 
             self.mapping[func.__name__].append({ 'time' : time, 'data' : resultado })
             return resultado
+ 
         return registry_response
 
     def active_debug(self, activate: bool = True):
         """Ativa/Desativa modo debug para chamadas"""
+
         self.debug_mode = activate

@@ -1,1 +1,1 @@
-from .service import debug
+from .debugger import debug
