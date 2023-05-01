@@ -1,3 +1,4 @@
+from functools import wraps
 from src.utils.debugger import debug
 
 class CallMethodInterface:
@@ -23,6 +24,8 @@ class CallMethodInterface:
         - debug
         """
         @self.debugger
-        def intermediaria(*args, **kwargs):
+        @wraps(func)
+        def intermediaria(*args, **kwargs) -> callable:
+            print(f'Called Method from {self.from_factory}')
             return func(*args, **kwargs)
         return intermediaria

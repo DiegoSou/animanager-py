@@ -1,5 +1,7 @@
+from abc import ABC
+from functools import wraps
 
-class FactoryInterface:
+class FactoryInterface(ABC):
     """Interface decoradora para fábricas"""
 
     def __init__(self, name: str, call_interface: callable):
@@ -8,7 +10,7 @@ class FactoryInterface:
         self.mapping = {}
         self.call_interface = call_interface(self.name)
 
-    def __call__(self, func):
+    def factory_method(self, func) -> callable:
         """Instâncias da factory viram um callable"""
         def intermediaria(*args, **kwargs):
             called_func = self.__call_method(func)
@@ -24,6 +26,8 @@ class FactoryInterface:
     def __call_method(self, func):
         """Chama uma função aplicando o decorador de chamadas"""
         @self.call_interface
+        @wraps(func)
         def intermediaria(*args, **kwargs):
+            """Roda a função original"""
             return func(*args, **kwargs)
         return intermediaria
