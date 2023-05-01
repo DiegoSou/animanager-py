@@ -1,31 +1,33 @@
 from abc import ABC
 from functools import wraps
+from src.infra.config.call_method_config import CallMethodInterface
 
 class FactoryInterface(ABC):
     """Interface decoradora para fábricas"""
+    mapping = {}
 
-    def __init__(self, name: str, call_interface: callable):
-        """Construtor para definir uma instância da Factory"""
-        self.name = name
-        self.mapping = {}
-        self.call_interface = call_interface(self.name)
+    @classmethod
+    def __get_classname(cls):
+        return cls.__name__
 
-    def factory_method(self, func) -> callable:
+    @classmethod
+    def factory_method(cls, func) -> callable:
         """Instâncias da factory viram um callable"""
         def intermediaria(*args, **kwargs):
-            called_func = self.__call_method(func)
+            called_func = cls.__call_method(func)
             result = called_func(*args, **kwargs)
 
-            if func.__name__ not in self.mapping:
-                self.mapping[func.__name__] = []
+            if func.__name__ not in cls.mapping:
+                cls.mapping[func.__name__] = []
 
-            self.mapping[func.__name__].append(result)
+            cls.mapping[func.__name__].append(result)
             return result['data']
         return intermediaria
 
-    def __call_method(self, func):
+    @classmethod
+    def __call_method(cls, func):
         """Chama uma função aplicando o decorador de chamadas"""
-        @self.call_interface
+        @CallMethodInterface(cls.__get_classname())
         @wraps(func)
         def intermediaria(*args, **kwargs):
             """Roda a função original"""
