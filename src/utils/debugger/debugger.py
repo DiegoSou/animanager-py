@@ -1,41 +1,47 @@
-from functools import wraps
 from datetime import datetime
 
-def debug(verbose = False, level = 0):
+def debug():
     """Decorador debug, que recebe parâmetros"""
 
-    def intermediaria(func):
+    def get_time(func):
+        """Mede tempo de chamada da função
+        * irá rodar a função
         """
-        Intermediária que armazena variáveis livres.
-        Inclusive a "func" é uma delas.
-        """
-        @wraps(func)
-        def decorator(*args, **kwargs):
-            """A lógica que abriga uma decoração e executa a função passada
+        def intermediaria(*args, **kwargs):
+            start_time = datetime.now()
+            result = func(*args, **kwargs)
+            total_time = datetime.now() - start_time
+
+            # To-do: data deve ser json 
+            return { 'start': start_time, 'duration': total_time, 'data': result }
+        return intermediaria
+
+    def get_args(func):
+        """Mostra os argumentos da função"""
+        def intermediaria(*args, **kwargs):
+            print(
+                f"Chamada {func.__name__}\n"
+                f"Parâmetros posicionais: {args}\n"
+                f"Parâmetros nomeados: {kwargs}\n"
+            )
+            return func(*args, **kwargs)
+        return intermediaria
+
+
+    def run_debug(func):
+        """Intermediária que recebe variáveis livres."""
+        @get_args
+        @get_time
+        def intermediaria(*args, **kwargs):
+            """
+            A lógica que abriga uma decoração e executa a função passada
             - params
                 - *args: Argumentos posicionais
                 - **kwargs: Argumentos nomeados
             - return 
                 - o resultado da execução
             """
+            return func(*args, **kwargs)
+        return intermediaria
 
-            print(f"Debug from {__name__}")
-
-            start_t = datetime.now()
-            func_result = func(start_t, *args, **kwargs)
-            final_t = datetime.now() - start_t
-
-            if verbose:
-                print(
-                    f"Chamada {func.__name__}\n"
-                    f"Parâmetros posicionais: {args}\n"
-                    f"Parâmetros nomeados: {kwargs}\n"
-                )
-
-            if level > 0:
-                print(f"Resultado: {func_result}")
-                print(f"Tempo total: {final_t.total_seconds()}\n")
-            return func_result
-        return decorator
-    
-    return intermediaria
+    return run_debug
