@@ -9,13 +9,12 @@ class CallMethodInterface:
         - __call__: será executado toda vez que a instância for chamada como uma função
     """
 
-    def __init__(self, from_factory: str):
+    def __init__(self):
         """
         Constrói o assistente de chamadas de uma factory
         - params:
             - debug_mode: mostra estatísticas da execução do método
         """
-        self.from_factory = from_factory
         self.debugger = debug()
 
     def __call__(self, func):
@@ -26,6 +25,6 @@ class CallMethodInterface:
         @self.debugger
         @wraps(func)
         def intermediaria(*args, **kwargs) -> callable:
-            print(f'Called Method from {self.from_factory}')
+            print(f'Called Method from {args[0].__name__}')
             return func(*args, **kwargs)
         return intermediaria

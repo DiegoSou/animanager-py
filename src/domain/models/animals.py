@@ -17,5 +17,5 @@ class Animals(NamedTuple):
     name: str
     specie: str
     weight: float
-    animal_type: Enum(AnimalTypes)
+    animal_type: Type[AnimalTypes]
     animal_actions: Type[AnimalStrategyInterface]

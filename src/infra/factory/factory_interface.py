@@ -7,12 +7,8 @@ class FactoryInterface(ABC):
     mapping = {}
 
     @classmethod
-    def __get_classname(cls):
-        return cls.__name__
-
-    @classmethod
     def factory_method(cls, func) -> callable:
-        """Instâncias da factory viram um callable"""
+        """Define um método da factory"""
         def intermediaria(*args, **kwargs):
             called_func = cls.__call_method(func)
             result = called_func(*args, **kwargs)
@@ -27,7 +23,7 @@ class FactoryInterface(ABC):
     @classmethod
     def __call_method(cls, func):
         """Chama uma função aplicando o decorador de chamadas"""
-        @CallMethodInterface(cls.__get_classname())
+        @CallMethodInterface()
         @wraps(func)
         def intermediaria(*args, **kwargs):
             """Roda a função original"""
