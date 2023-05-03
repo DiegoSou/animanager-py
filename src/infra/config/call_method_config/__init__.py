@@ -1,2 +1,2 @@
 """Classe Caller"""
-from .call_method_interface import CallMethodInterface
+from .call_method import CallMethodAssistant

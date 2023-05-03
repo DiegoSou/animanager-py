@@ -1,20 +1,16 @@
 from functools import wraps
 from src.utils.debugger import debug
 
-class CallMethodInterface:
+class CallMethodAssistant:
     """
-    Classe decoradora: Define regras para chamadas de métodos
+    Assistente para definir regras para chamadas de métodos
     - métodos:
-        - __init__: define uma instância, é o construtor
-        - __call__: será executado toda vez que a instância for chamada como uma função
+        - __init__: construtor
+        - __call__: instância da classe vira um callable
     """
 
     def __init__(self):
-        """
-        Constrói o assistente de chamadas de uma factory
-        - params:
-            - debug_mode: mostra estatísticas da execução do método
-        """
+        """define os decoradores para as chamadas"""
         self.debugger = debug()
 
     def __call__(self, func):

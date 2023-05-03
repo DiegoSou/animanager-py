@@ -1,6 +1,6 @@
 from abc import ABC
 from functools import wraps
-from src.infra.config.call_method_config import CallMethodInterface
+from src.infra.config.call_method_config import CallMethodAssistant
 
 class FactoryInterface(ABC):
     """Interface decoradora para fábricas"""
@@ -23,7 +23,7 @@ class FactoryInterface(ABC):
     @classmethod
     def __call_method(cls, func):
         """Chama uma função aplicando o decorador de chamadas"""
-        @CallMethodInterface()
+        @CallMethodAssistant()
         @wraps(func)
         def intermediaria(*args, **kwargs):
             """Roda a função original"""
