@@ -18,7 +18,7 @@ class ValidationChain:
             valid = vldt.validate(param)
 
             if valid:
-                return vldt.action()
+                vldt.action()
 
             if not valid and all_or_none:
                 raise AssertionError(f"Assertion error: {vldt.__class__.__name__} failed.")

@@ -1,6 +1,7 @@
 from typing import NamedTuple, Type
 from enum import Enum
 from src.domain.interface import AnimalStrategyInterface
+from src.infra.chain_responsability import ValidatorInterface
 
 class AnimalSex(Enum):
     FEMALE = 'f'
@@ -10,7 +11,7 @@ class AnimalTypes(Enum):
     HEN = 'hen'
     DOG = 'dog'
     CATTLE = 'cattle'
-    SUINE = 'suine'
+    PIG = 'pig'
     HORSE = 'horse'
 
 class Animals(NamedTuple):
@@ -19,3 +20,4 @@ class Animals(NamedTuple):
     weight: float
     animal_type: Type[AnimalTypes]
     survival_strategy: Type[AnimalStrategyInterface]
+    diet_validation : Type[ValidatorInterface]

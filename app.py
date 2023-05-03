@@ -1,7 +1,4 @@
 from src.data.factories import AnimalFactory
 
-my_chicken = AnimalFactory.create('Chicken', 'caipira', 2.7, 'hen')
-print(AnimalFactory.mapping)
-
-print(my_chicken.survival_strategy.action())
-print(my_chicken.survival_strategy.competence_param())
+animal_food_chain_responsability = AnimalFactory.create_validation_chain('food')
+animal_food_chain_responsability.process('corn')
