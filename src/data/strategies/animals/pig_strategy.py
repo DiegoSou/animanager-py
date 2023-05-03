@@ -1,6 +1,6 @@
 from src.domain.interface import AnimalStrategyInterface
 
-class SuineStrategy(AnimalStrategyInterface):
+class PigStrategy(AnimalStrategyInterface):
     """Define a ação de produção e parâmetro de competência para porco"""
 
     @classmethod
