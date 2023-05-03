@@ -5,7 +5,7 @@ class HorseStrategy(AnimalStrategyInterface):
 
     @classmethod
     def action(cls):
-        return 'Horse'
+        return 'Gallop'
 
     @classmethod
     def competence_param(cls):

@@ -18,4 +18,4 @@ class Animals(NamedTuple):
     specie: str
     weight: float
     animal_type: Type[AnimalTypes]
-    animal_actions: Type[AnimalStrategyInterface]
+    survival_strategy: Type[AnimalStrategyInterface]

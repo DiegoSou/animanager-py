@@ -16,14 +16,14 @@ class AnimalFactory(FactoryInterface):
     @FactoryInterface.factory_method
     def create(cls, name: str, specie: str, weight: float, animal_type: str):
         """Cria modelo de animal"""
-        animal_actions = cls.__define_type(animal_type)
+        survival_strategy = cls.__define_type(animal_type)
 
         return Animals(
             name=name,
             specie=specie,
             weight=weight,
             animal_type=AnimalTypes(animal_type),
-            animal_actions=animal_actions,
+            survival_strategy=survival_strategy
         )
 
     @classmethod
