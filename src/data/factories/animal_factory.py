@@ -1,17 +1,18 @@
 from typing import Type, Union
 from src.infra.factory import FactoryInterface
 from src.domain.models import Animals, AnimalTypes
-from src.domain.strategies.interface import AnimalStrategyInterface
-from src.domain.strategies.animals import (
+from src.domain.interface import AnimalStrategyInterface
+from src.data.strategies.animals import (
     HenStrategy,
     DogStrategy,
     CattleStrategy,
     SuineStrategy,
-    HorseStrategy,
+    HorseStrategy
 )
 
 
 class AnimalFactory(FactoryInterface):
+
     @classmethod
     @FactoryInterface.factory_method
     def create(cls, name: str, specie: str, weight: float, animal_type: str):

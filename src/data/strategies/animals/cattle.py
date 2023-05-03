@@ -1,4 +1,4 @@
-from src.domain.strategies.interface import AnimalStrategyInterface
+from src.domain.interface import AnimalStrategyInterface
 
 class CattleStrategy(AnimalStrategyInterface):
     """Define a ação de produção e parâmetro de competência para gado"""

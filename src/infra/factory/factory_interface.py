@@ -1,6 +1,6 @@
 from abc import ABC
 from functools import wraps
-from src.infra.config.call_method_config import CallMethodAssistant
+from src.utils.call_method import CallMethodAssistant
 
 class FactoryInterface(ABC):
     """Interface decoradora para fábricas"""

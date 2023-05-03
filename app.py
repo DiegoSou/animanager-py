@@ -1,6 +1,6 @@
-from src.domain.factories import AnimalFactory
+from src.data.factories import AnimalFactory
 
-my_chicken = AnimalFactory.create('Chicken', 'caipira', 2.7, 'dog')
+my_chicken = AnimalFactory.create('Chicken', 'caipira', 2.7, 'hen')
 print(AnimalFactory.mapping)
 
 print(my_chicken.survival_strategy.action())

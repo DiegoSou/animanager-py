@@ -1,6 +1,6 @@
 from typing import NamedTuple, Type
 from enum import Enum
-from src.domain.strategies.interface import AnimalStrategyInterface
+from src.domain.interface import AnimalStrategyInterface
 
 class AnimalSex(Enum):
     FEMALE = 'f'
