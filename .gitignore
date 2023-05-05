@@ -3,3 +3,4 @@ venv
 exemplos
 .vscode
 .pylintrc
+animals.db
