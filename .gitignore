@@ -3,4 +3,5 @@ venv
 exemplos
 .vscode
 .pylintrc
-animals.db
+.env
+routes.py

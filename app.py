@@ -1,4 +1,5 @@
-from src.data.factories import AnimalFactory
+from src.main import app, db
+from src.infra.entities import Animals
 
-animal_food_chain_responsability = AnimalFactory.create_validation_chain('food')
-animal_food_chain_responsability.process('corn')
+app.app_context().push()
+db.create_all()
