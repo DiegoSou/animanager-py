@@ -1,7 +1,7 @@
 from typing import Type, Dict, Union
-from src.infra.factory import FactoryInterface
-from src.infra.chain_responsability import ValidatorInterface, ValidationChain
-from src.domain.models import Animals, AnimalTypes
+from src.infra.config import ValidationChain
+from src.infra.interface import ValidatorInterface, FactoryInterface
+from src.domain.models import Animals
 from src.domain.interface import AnimalStrategyInterface
 from src.data.strategies.animals import (
     HenStrategy,
@@ -33,7 +33,7 @@ class AnimalFactory(FactoryInterface):
             name=name,
             specie=specie,
             weight=weight,
-            animal_type=AnimalTypes(animal_type),
+            animal_type=animal_type,
             survival_strategy=defined_type['strategy'],
             diet_validation=defined_type['validator']('food')
         )
