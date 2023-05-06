@@ -17,10 +17,10 @@ class Animals(db.Model):
     __tablename__ = "animals"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String(30), nullable=False)
     sex = db.Column(db.Enum(AnimalSex), nullable=False)
     wheight = db.Column(db.Float)
-    specie = db.Column(db.String)
+    specie = db.Column(db.String(100))
     animal_type = db.Column(db.Enum(AnimalTypes), nullable=False)
 
     def __repr__(self):
