@@ -1,1 +1,0 @@
-from .animal_strategy_interface import AnimalStrategyInterface

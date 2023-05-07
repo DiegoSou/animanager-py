@@ -1,2 +1,2 @@
-from .factory_interface import FactoryInterface
-from .validator_interface import ValidatorInterface
+from .animal_strategy_interface import AnimalStrategyInterface
+from .responsability_interface import ResponsabilityInterface

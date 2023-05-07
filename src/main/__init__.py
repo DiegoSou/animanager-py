@@ -1,1 +1,1 @@
-from .db_config import app, db
+from .app_config import app, db

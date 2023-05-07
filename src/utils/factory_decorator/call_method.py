@@ -1,5 +1,5 @@
 from functools import wraps
-from src.utils.debugger import debug
+from .debugger import debug
 
 class CallMethodAssistant:
     """

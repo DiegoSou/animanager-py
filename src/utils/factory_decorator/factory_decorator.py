@@ -1,9 +1,9 @@
 from abc import ABC
 from functools import wraps
-from src.utils.call_method import CallMethodAssistant
+from .call_method import CallMethodAssistant
 
-class FactoryInterface(ABC):
-    """Interface decoradora para fábricas"""
+class FactoryDecorator(ABC):
+    """(ABC) Provém decorador factory_method e atributo mapping que registra cada método decorado"""
     mapping = {}
 
     @classmethod
