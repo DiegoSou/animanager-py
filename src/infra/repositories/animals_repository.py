@@ -14,10 +14,10 @@ class AnimalsRepository(AnimalsRepositoryInterface):
                 AnimalsModel(
                     id=entity.id,
                     name=entity.name,
-                    sex=entity.sex,
+                    sex=entity.sex.value,
                     weight=entity.weight,
                     specie=entity.specie,
-                    animal_type=entity.animal_type
+                    animal_type=entity.animal_type.value
                 )
             )
         return animals

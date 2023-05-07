@@ -1,1 +1,1 @@
-from .animals import AnimalSex, AnimalTypes, Animals
+from .animals import Animals

@@ -19,14 +19,14 @@ class Animals(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     sex = db.Column(db.Enum(AnimalSex), nullable=False)
-    wheight = db.Column(db.Float)
+    weight = db.Column(db.Float)
     specie = db.Column(db.String(100))
     animal_type = db.Column(db.Enum(AnimalTypes), nullable=False)
 
     def __repr__(self):
         return (""
             + f"<Animal {self.name}:"
-            + f" [animal_type: {self.animal_type}"
-            + f", sex: {self.sex}"
+            + f" [animal_type: {self.animal_type.value}"
+            + f", sex: {self.sex.value}"
             + f", specie: {self.specie}]>"
         )
