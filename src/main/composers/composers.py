@@ -7,5 +7,8 @@ def find_animal_composite():
 
     repo = AnimalsRepository()
     usecase = FindAnimalUseCase(repo)
+
+    # toda composer retorna uma Controller preenchida com o caso de uso
+    # o que libera assim o método route
     controller = FindAnimalController(usecase)
     return controller

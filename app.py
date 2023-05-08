@@ -1,6 +1,6 @@
 from src.main import app, db, animals_routes
 
-# Rotas
+# Rotas Blueprints
 app.register_blueprint(animals_routes)
 
 # Hello world
