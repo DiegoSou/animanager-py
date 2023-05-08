@@ -1,1 +1,1 @@
-from .composers import find_animal_composite
+from .composers import find_animal_composite, register_animal_composite
