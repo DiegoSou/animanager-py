@@ -1,5 +1,6 @@
 from typing import List
 from src.domain.models import Animals as AnimalsModel
+from src.infra.entities import AnimalSex, AnimalTypes
 from src.infra.entities import Animals as AnimalsEntity
 from src.data.interfaces import AnimalsRepositoryInterface
 
@@ -28,10 +29,10 @@ class AnimalsRepository(AnimalsRepositoryInterface):
         result_insert = (
             AnimalsEntity(
                 name=name,
-                sex=sex,
+                sex=AnimalSex(sex),
                 weight=weight,
                 specie=specie,
-                animal_type=animal_type
+                animal_type=AnimalTypes(animal_type)
             )
         )
 
@@ -41,8 +42,8 @@ class AnimalsRepository(AnimalsRepositoryInterface):
         return AnimalsModel(
             id=result_insert.id,
             name=result_insert.name,
-            sex=result_insert.sex,
+            sex=result_insert.sex.value,
             weight=result_insert.weight,
             specie=result_insert.specie,
-            animal_type=result_insert.animal_type
+            animal_type=result_insert.animal_type.value
         )
