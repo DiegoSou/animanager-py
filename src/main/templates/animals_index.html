@@ -1,0 +1,42 @@
+{% extends 'header.html' %}
+
+{% block page %} 
+
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+
+                <div class="jumbotron p-3">
+                    <h2>
+                        Manage <b>Animals </b> 
+                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">
+                            Register New Animal
+                        </button>
+                    </h2>
+
+                    <table class="table table-hover table-dark">
+                        <tr>
+                            <th>Id</th><th>Name</th><th>Sex</th><th>Weight</th><th>Specie</th><th>Type</th><th>Action</th>
+                        </tr>
+                        <tr>
+                            <td>01</td>
+                            <td>test</td>
+                            <td>MALE</td>
+                            <td>2.5</td>
+                            <td>no specie</td>
+                            <td>HORSE</td>
+                            <td>
+                                <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
+                                <a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

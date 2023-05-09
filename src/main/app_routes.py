@@ -10,7 +10,7 @@ def index():
     response = flask_adapter(request, find_animal_composite())
 
     if response.status_code < 300:
-        return jsonify({"data": response.body}), response.status_code
+        return render_template("animals_index.html")
 
     return jsonify({
         "error": {
@@ -25,7 +25,7 @@ def register():
     "insert animals data"
 
     if request.method == "GET":
-        return render_template("index.html")
+        return render_template("animals_form.html")
 
     response = flask_adapter(request, register_animal_composite())
 
