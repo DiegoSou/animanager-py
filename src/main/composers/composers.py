@@ -1,6 +1,10 @@
-from src.data import FindAnimalUseCase, RegisterAnimalUseCase
 from src.presentation.controllers import FindAnimalController, RegisterAnimalController
+from src.data import FindAnimalUseCase, RegisterAnimalUseCase
 from src.infra.repositories import AnimalsRepository
+
+# toda composer traz um Model (repositório) para os Casos de Uso
+# manda o caso de uso para a Controller
+# e retorna essa controller com route()
 
 def find_animal_composite():
     """Find animal composite route"""
@@ -8,10 +12,9 @@ def find_animal_composite():
     repo = AnimalsRepository()
     usecase = FindAnimalUseCase(repo)
 
-    # toda composer retorna uma Controller preenchida com o caso de uso
-    # o que libera assim o método route
     controller = FindAnimalController(usecase)
     return controller
+
 
 def register_animal_composite():
     """Register animal composite route"""

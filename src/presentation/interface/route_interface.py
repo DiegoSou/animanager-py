@@ -1,6 +1,6 @@
 from typing import Type
 from abc import ABC, abstractmethod
-from src.presentation.helpers import HttpRequest, HttpResponse
+from src.presentation import HttpRequest, HttpResponse
 
 class RouteInterface(ABC):
 

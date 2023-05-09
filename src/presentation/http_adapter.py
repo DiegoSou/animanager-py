@@ -1,6 +1,6 @@
 from typing import Type
-from src.main.interface import RouteInterface
-from src.presentation.helpers import HttpRequest, HttpResponse
+from src.presentation.interface import RouteInterface
+from .http_models import HttpRequest, HttpResponse
 
 def flask_adapter(request: any, route: Type[RouteInterface]) -> any:
     """Adapt flask requests"""

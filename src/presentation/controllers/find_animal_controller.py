@@ -1,6 +1,6 @@
 from typing import Type
-from src.main.interface import RouteInterface
-from src.presentation.helpers import HttpRequest, HttpResponse
+from src.presentation.interface import RouteInterface
+from src.presentation import HttpRequest, HttpResponse
 from src.domain.usecases import IFindAnimalUseCase
 
 class FindAnimalController(RouteInterface):
