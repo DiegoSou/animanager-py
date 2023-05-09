@@ -1,6 +1,6 @@
 from typing import Dict, Type
 from src.domain.models import Animals
-from src.data.interfaces import AnimalsRepositoryInterface
+from src.data.interface import AnimalsRepositoryInterface
 from src.domain.usecases import IRegisterAnimalUseCase
 
 class RegisterAnimalUseCase(IRegisterAnimalUseCase):

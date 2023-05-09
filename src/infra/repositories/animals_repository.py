@@ -2,7 +2,7 @@ from typing import List
 from src.domain.models import Animals as AnimalsModel
 from src.infra.entities import AnimalSex, AnimalTypes
 from src.infra.entities import Animals as AnimalsEntity
-from src.data.interfaces import AnimalsRepositoryInterface
+from src.data.interface import AnimalsRepositoryInterface
 
 from src.main.app_config import db
 
