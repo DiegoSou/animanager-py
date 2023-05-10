@@ -1,5 +1,9 @@
-from src.presentation.controllers import FindAnimalController, RegisterAnimalController
-from src.data import FindAnimalUseCase, RegisterAnimalUseCase
+from src.presentation.controllers import (
+    FindAnimalController,
+    RegisterAnimalController,
+    UpdateAnimalController
+)
+from src.data import FindAnimalUseCase, RegisterAnimalUseCase, UpdateAnimalUseCase
 from src.infra.repositories import AnimalsRepository
 
 # manage concretes - agrupa dependências
@@ -24,4 +28,14 @@ def register_animal_composite():
     usecase = RegisterAnimalUseCase(repo)
 
     controller = RegisterAnimalController(usecase)
+    return controller
+
+
+def update_animal_composite():
+    """Update animal composite route"""
+
+    repo = AnimalsRepository()
+    usecase = UpdateAnimalUseCase(repo, FindAnimalUseCase(repo))
+
+    controller = UpdateAnimalController(usecase)
     return controller

@@ -62,3 +62,19 @@ class AnimalsRepository(AnimalsRepositoryInterface):
             specie=result_insert.specie,
             animal_type=result_insert.animal_type.value
         )
+
+
+    def animals_update(self, animal_id, name, weight, specie) -> str:
+        result_update = (
+            AnimalsEntity(
+                id=animal_id,
+                name=name,
+                weight=weight,
+                specie=specie
+            )
+        )
+
+        db.session.add(result_update)
+        db.session.commit()
+
+        return animal_id

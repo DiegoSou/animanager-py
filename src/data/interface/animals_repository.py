@@ -11,3 +11,7 @@ class AnimalsRepositoryInterface(ABC):
     @abstractmethod
     def animals_register(self, name, sex, weight, specie, animal_type) -> Animals:
         """register an animal record"""
+
+    @abstractmethod
+    def animals_update(self, animal_id, name, weight, specie) -> str:
+        """update an animal record"""
