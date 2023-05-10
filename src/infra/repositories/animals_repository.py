@@ -8,8 +8,22 @@ from src.main.app_config import db
 
 class AnimalsRepository(AnimalsRepositoryInterface):
 
-    def animals_index(self) -> List[AnimalsModel]:
-        result_query = AnimalsEntity.query.all()
+    def animals_select(self, animal_id, animal_name, animal_type) -> List[AnimalsModel]:
+
+        if animal_id:
+            result_query = AnimalsEntity.query.filter_by(id=animal_id).first()
+
+        elif animal_name and not animal_type:
+            result_query = AnimalsEntity.query.filter_by(name=animal_name).all()
+
+        elif not animal_name and animal_type:
+            result_query = AnimalsEntity.query.filter_by(animal_type=animal_type).all()
+
+        elif animal_name and animal_type:
+            result_query = AnimalsEntity.query.filter_by(name=animal_name, animal_type=animal_type).all()
+
+        else: result_query = AnimalsEntity.query.all()
+
         animals = []
 
         for entity in result_query:
@@ -24,6 +38,7 @@ class AnimalsRepository(AnimalsRepositoryInterface):
                 )
             )
         return animals
+
 
     def animals_register(self, name, sex, weight, specie, animal_type) -> AnimalsModel:
         result_insert = (

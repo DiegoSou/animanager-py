@@ -13,6 +13,18 @@ class FindAnimalController(RouteInterface):
         response = None
 
         if not http_request.query:
-            response = self.find_animal_use_case.find_all()
+            response = self.find_animal_use_case.find()
+        else:
+            query_keys = http_request.query.keys()
+
+            animal_id = http_request.query['id'] if 'id' in query_keys else None
+            animal_name = http_request.query['name'] if 'name' in query_keys else None
+            animal_type = http_request.query['animal_type'] if 'animal_type' in query_keys else None
+
+            response = self.find_animal_use_case.find(
+                animal_id=animal_id,
+                animal_name=animal_name,
+                animal_type=animal_type
+            )
 
         return HttpResponse(status_code=200, body=response["data"])

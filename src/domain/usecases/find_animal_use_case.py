@@ -5,5 +5,10 @@ from src.domain.models import Animals
 class IFindAnimalUseCase(ABC):
 
     @abstractmethod
-    def find_all(self) -> Dict[bool, List[Animals]]:
-        """get all animals records"""
+    def find(
+        self,
+        animal_id: str = None,
+        animal_name: str = None,
+        animal_type: str = None
+    ) -> Dict[bool, List[Animals]]:
+        """get animals records by id, name or animal_type"""

@@ -8,10 +8,15 @@ class FindAnimalUseCase(IFindAnimalUseCase):
     def __init__(self, repo: Type[AnimalsRepositoryInterface]):
         self.repo = repo
 
-    def find_all(self) -> Dict[bool, List[Animals]]:
+    def find(
+            self,
+            animal_id: str = None,
+            animal_name: str = None,
+            animal_type: str = None
+    ) -> Dict[bool, List[Animals]]:
 
         try:
-            response = self.repo.animals_index()
+            response = self.repo.animals_select(animal_id, animal_name, animal_type)
             return {"success": True, "data": response}
         except Exception as exc:
             return {"success": False, "data": exc}
