@@ -2,7 +2,7 @@ from src.presentation.controllers import FindAnimalController, RegisterAnimalCon
 from src.data import FindAnimalUseCase, RegisterAnimalUseCase
 from src.infra.repositories import AnimalsRepository
 
-# manage concretes
+# manage concretes - agrupa dependências
 # toda composer traz um Model (repositório) para os Casos de Uso
 # manda o caso de uso para a Controller
 # e retorna essa controller com route()
