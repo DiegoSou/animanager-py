@@ -1,5 +1,7 @@
 from src.main import app, db, animals_routes
 
+app.secret_key = "something"
+
 # Rotas Blueprints
 app.register_blueprint(animals_routes)
 

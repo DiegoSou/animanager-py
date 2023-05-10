@@ -9,92 +9,168 @@
                 <div class="jumbotron p-3">
                     <h2>
                         Manage <b>Animals </b> 
-                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalregister">
                             Register New Animal
                         </button>
                     </h2>
+
+                    {% with messages = get_flashed_messages() %}
+
+                    {% if messages %}
+                        {% for message in messages %}
+
+                            <div class="alert alert-success alert-dismissable" role="alert">
+
+                                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">x</span>
+                                </button>
+                                {{ message }}
+
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+
+                    {% endwith %}
 
                     <table class="table table-hover table-dark">
                         <tr>
                             <th>Id</th><th>Name</th><th>Sex</th><th>Weight</th><th>Specie</th><th>Type</th><th>Action</th>
                         </tr>
-                        <tr>
-                            <td>01</td>
-                            <td>test</td>
-                            <td>MALE</td>
-                            <td>2.5</td>
-                            <td>no specie</td>
-                            <td>HORSE</td>
-                            <td>
-                                <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
-                                <a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
-                            </td>
-                        </tr>
+
+                        {% for animal in animals_data %}
+                            <tr>
+                                <td>{{ animal.id }}</td>
+                                <td>{{ animal.name }}</td>
+                                
+                                {% if animal.sex == 'f' %}
+                                    <td>female</td>
+                                {% endif %}
+
+                                {% if animal.sex == 'm' %}
+                                    <td>male</td>
+                                {% endif %}
+
+                                <td>{{ animal.weight }}</td>
+                                <td>{{ animal.specie }}</td>
+                                <td>{{ animal.animal_type }}</td>
+                                
+                                <td>
+                                    <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
+                                    <a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </table>
                 </div>
 
-            </div>
-        </div>
-    </div>
+                <!-- Modal register animal -->
+                <div class="modal fade" id="modalregister" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
-    <div class="modal fade" id="mymodal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Register New Animal</h4>
+                            </div>
+                            <div class="modal-body">
 
-                <div class="modal-header">
-                    <h4 class="modal-title">Register New Animal</h4>
-                </div>
-                <div class="modal-body">
+                                <form action="{{url_for('animals.index')}}" method="post">
 
-                    <form action="" method="post">
+                                    <div class="form-group">
+                                        <label>Animal Name</label>
+                                        <p><input type="text" name="name" id="name" placeholder="Enter animal name" required/></p>
+                                    </div>
 
-                        <div class="form-group">
-                            <label>Animal Name</label>
-                            <p><input type="text" name="name" id="name" placeholder="Enter animal name" required/></p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="animal_type">Animal Type</label>
-                            <select class="form-control form-control-sm" name="animal_type" id="animal_type">
-                                <option value="hen">Hen</option>
-                                <option value="dog">Dog</option>
-                                <option value="cattle">Cattle</option>
-                                <option value="pig">Pig</option>
-                                <option value="horse">Horse</option>
-                            </select>
-                        </div>
+                                    <div class="form-group">
+                                        <label for="animal_type">Animal Type</label>
+                                        <select class="form-control form-control-sm" name="animal_type" id="animal_type">
+                                            <option value="hen">Hen</option>
+                                            <option value="dog">Dog</option>
+                                            <option value="cattle">Cattle</option>
+                                            <option value="pig">Pig</option>
+                                            <option value="horse">Horse</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <fieldset style="width: fit-content; margin-top: 0.5rem">
+                                            <span>Animal sex:</span>
                         
-                        <div class="form-group">
-                            <fieldset style="width: fit-content; margin-top: 0.5rem">
-                                <legend>Animal sex:</legend>
-            
-                                <input type="radio" name="sex" id="sex_f" value="f" checked>
-                                <label for="sex_f">Fem</label>
+                                            <input type="radio" name="sex" id="sex_f" value="f" checked>
+                                            <label for="sex_f">Fem</label>
 
-                                <input type="radio" name="sex" id="sex_m" value="m">
-                                <label for="sex_m">Masc</label>
-                            </fieldset>
+                                            <input type="radio" name="sex" id="sex_m" value="m">
+                                            <label for="sex_m">Masc</label>
+                                        </fieldset>
+                                    </div>
+                                        
+                                    <div class="form-group">
+                                        <label for="weight">Weight: </label>
+                                        <input type="number" name="weight" id="weight" step="0.5" min="0.0" value="0.0"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="specie">Specie: </label>
+                                        <input type="text" name="specie" id="specie" placeholder="Describe specie"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+
                         </div>
-                            
-                        <div class="form-group">
-                            <label for="weight">Weight</label>
-                            <input type="number" name="weight" id="weight" step="0.5"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="specie">Specie</label>
-                            <input type="text" name="specie" id="weight"/>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" type="submit">Save</button>
-                        </div>
-
-                    </form>
-
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                <!-- Modal edit animal -->
+                <div class="modal fade" id="modaledit" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Information</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <form action="" method="post">
+
+                                    <input type="hidden" name="id" value="id">
+
+                                    <div class="form-group">
+                                        <label>Name: </label>
+                                        <input type="text" name="name" id="name" value="testname" required/>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="weight">Weight: </label>
+                                        <input type="number" name="weight" id="weight" value="testweight" step="0.5"/>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="specie">Specie: </label>
+                                        <input type="text" name="specie" id="specie" value="testspecie"/>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Ok</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
             </div>
