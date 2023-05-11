@@ -2,7 +2,8 @@ from flask import jsonify, request, Blueprint, redirect, render_template, flash,
 from src.main.composers import (
     find_animal_composite,
     register_animal_composite,
-    update_animal_composite
+    update_animal_composite,
+    delete_animal_composite
 )
 from src.presentation import flask_adapter
 
@@ -51,6 +52,25 @@ def update():
 
     if response.status_code < 300:
         flash("Record updated")
+        return redirect(url_for("animals.index"))
+
+    return jsonify({
+        "error": {
+            "status": response.status_code,
+            "title": response.body
+        }
+    }), response.status_code
+
+
+@animals_routes.route("/animals/delete", methods=["GET", "POST"])
+def delete():
+    "animals delete template"
+    print(request.method)
+
+    response = flask_adapter(request, delete_animal_composite())
+
+    if response.status_code < 300:
+        flash("Record deleted")
         return redirect(url_for("animals.index"))
 
     return jsonify({

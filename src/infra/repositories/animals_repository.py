@@ -92,17 +92,15 @@ class AnimalsRepository(AnimalsRepositoryInterface):
             animal_type=animal_old.animal_type.value
         )
 
-    # def animals_update(self, animal_id, name, weight, specie) -> str:
-    #     result_update = (
-    #         AnimalsEntity(
-    #             id=animal_id,
-    #             name=name,
-    #             weight=weight,
-    #             specie=specie
-    #         )
-    #     )
+    def animals_delete(self, animal_old) -> AnimalsModel:
+        db.session.delete(animal_old)
+        db.session.commit()
 
-    #     db.session.add(result_update)
-    #     db.session.commit()
-
-    #     return animal_id
+        return AnimalsModel(
+            id=animal_old.id,
+            name=animal_old.name,
+            sex=animal_old.sex.value,
+            weight=animal_old.weight,
+            specie=animal_old.specie,
+            animal_type=animal_old.animal_type.value
+        )

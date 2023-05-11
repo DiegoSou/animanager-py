@@ -21,3 +21,7 @@ class AnimalsRepositoryInterface(ABC):
     @abstractmethod
     def animals_update(self, animal_old, name, weight, specie) -> Animals:
         """update an old animal record"""
+
+    @abstractmethod
+    def animals_delete(self, animal_old) -> Animals:
+        """delete an old animal_record"""

@@ -160,7 +160,7 @@
                                 
                                 <td>
                                     <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{animal.id}}">Edit</button>
-                                    <button class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</button>
+                                    <button class="btn btn-danger btn-xs" onclick="return (confirm('Are you sure to delete?') ? window.location='/animals/delete?id={{animal.id}}' : false)">Delete</button>
                                 </td>
                             </tr>
 
