@@ -13,4 +13,10 @@ class IRegisterAnimalUseCase(ABC):
         weight: float = None,
         specie: str = None
     ) -> Dict[bool, Animals]:
-        """register an animal record"""
+        """
+        register an animal record
+        - params
+            - animal informations
+        - return
+            - Dict {'success':bool, 'data':AnimalsModel}
+        """

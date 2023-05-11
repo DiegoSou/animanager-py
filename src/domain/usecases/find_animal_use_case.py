@@ -9,6 +9,15 @@ class IFindAnimalUseCase(ABC):
         self,
         animal_id: str = None,
         animal_name: str = None,
-        animal_type: str = None
+        animal_type: str = None,
+        convert_to_model: bool = True
     ) -> Dict[bool, List[Animals]]:
-        """get animals records by id, name or animal_type"""
+        """
+        get animals records
+        - params
+            - animal_id: get by id
+            - animal_name: get by name
+            - animal_type: get by animal type
+        - return
+            - Dict {'success':bool, 'data':List[AnimalsModel or AnimalsEntity]}
+        """

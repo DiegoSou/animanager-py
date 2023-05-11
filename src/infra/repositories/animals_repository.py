@@ -8,10 +8,16 @@ from src.main.app_config import db
 
 class AnimalsRepository(AnimalsRepositoryInterface):
 
-    def animals_select(self, animal_id, animal_name, animal_type) -> List[AnimalsModel]:
+    def animals_select(
+            self,
+            animal_id,
+            animal_name,
+            animal_type,
+            convert_to_model
+        ) -> List[AnimalsModel]:
 
         if animal_id:
-            result_query = AnimalsEntity.query.filter_by(id=animal_id).first()
+            result_query = [AnimalsEntity.query.filter_by(id=animal_id).first()]
 
         elif animal_name and not animal_type:
             result_query = AnimalsEntity.query.filter_by(name=animal_name).all()
@@ -20,9 +26,15 @@ class AnimalsRepository(AnimalsRepositoryInterface):
             result_query = AnimalsEntity.query.filter_by(animal_type=animal_type).all()
 
         elif animal_name and animal_type:
-            result_query = AnimalsEntity.query.filter_by(name=animal_name, animal_type=animal_type).all()
+            result_query = AnimalsEntity.query.filter_by(
+                name=animal_name,
+                animal_type=animal_type
+            ).all()
 
         else: result_query = AnimalsEntity.query.all()
+
+        if not convert_to_model:
+            return result_query
 
         animals = []
 
@@ -63,18 +75,34 @@ class AnimalsRepository(AnimalsRepositoryInterface):
             animal_type=result_insert.animal_type.value
         )
 
+    def animals_update(self, animal_old, name, weight, specie) -> AnimalsModel:
+        animal_old.name = name
+        animal_old.weight = weight
+        animal_old.specie = specie
 
-    def animals_update(self, animal_id, name, weight, specie) -> str:
-        result_update = (
-            AnimalsEntity(
-                id=animal_id,
-                name=name,
-                weight=weight,
-                specie=specie
-            )
-        )
-
-        db.session.add(result_update)
+        db.session.add(animal_old)
         db.session.commit()
 
-        return animal_id
+        return AnimalsModel(
+            id=animal_old.id,
+            name=animal_old.name,
+            sex=animal_old.sex.value,
+            weight=animal_old.weight,
+            specie=animal_old.specie,
+            animal_type=animal_old.animal_type.value
+        )
+
+    # def animals_update(self, animal_id, name, weight, specie) -> str:
+    #     result_update = (
+    #         AnimalsEntity(
+    #             id=animal_id,
+    #             name=name,
+    #             weight=weight,
+    #             specie=specie
+    #         )
+    #     )
+
+    #     db.session.add(result_update)
+    #     db.session.commit()
+
+    #     return animal_id

@@ -1,5 +1,9 @@
 from flask import jsonify, request, Blueprint, redirect, render_template, flash, url_for
-from src.main.composers import find_animal_composite, register_animal_composite, update_animal_composite
+from src.main.composers import (
+    find_animal_composite,
+    register_animal_composite,
+    update_animal_composite
+)
 from src.presentation import flask_adapter
 
 animals_routes = Blueprint("animals", __name__)
@@ -39,7 +43,7 @@ def register():
     }), response.status_code
 
 
-@animals_routes.route("/animals/upt", methods=["POST"])
+@animals_routes.route("/animals/update", methods=["POST"])
 def update():
     "animals update template"
 
