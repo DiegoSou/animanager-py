@@ -27,10 +27,6 @@ class UpdateAnimalUseCase(IUpdateAnimalUseCase):
                 convert_to_model=False
                 )['data'][0]
 
-            name = name if name else animal_old.name
-            weight = weight if weight else animal_old.weight
-            specie = specie if specie else animal_old.specie
-
             response = self.repo.animals_update(
                 animal_old=animal_old,
                 name=name,

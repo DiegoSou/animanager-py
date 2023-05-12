@@ -65,7 +65,6 @@ def update():
 @animals_routes.route("/animals/delete", methods=["GET", "POST"])
 def delete():
     "animals delete template"
-    print(request.method)
 
     response = flask_adapter(request, delete_animal_composite())
 

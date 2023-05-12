@@ -12,7 +12,6 @@ class DeleteAnimalController(RouteInterface):
         """Route to delete an animal"""
 
         response = None
-        print('Query: ', http_request.query)
 
         if http_request.query:
             response = self.delete_animal_use_case.delete_animal(
