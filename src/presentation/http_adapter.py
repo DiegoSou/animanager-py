@@ -2,7 +2,7 @@ from typing import Type
 from src.presentation.interface import RouteInterface
 from .http_models import HttpRequest, HttpResponse
 
-def flask_adapter(request: any, route: Type[RouteInterface]) -> any:
+def flask_adapter(request: any, controller: Type[RouteInterface]) -> any:
     """
     Adapt flask requests
     - params
@@ -12,27 +12,17 @@ def flask_adapter(request: any, route: Type[RouteInterface]) -> any:
         - HttpResponse with results or error
     """
 
-    try:
-        header = request.headers
-        body = None
-        query = request.args
-        form = request.form
+    header = request.headers
+    query = request.args
+    form = request.form
+    files = request.files
+    body = None
 
-        if (request.method == 'POST') and (header.get('Content-Type') == 'application/json'):
-            body = request.get_json()
+    if (request.method == 'POST') and (header.get('Content-Type') == 'application/json'):
+        body = request.get_json()
 
-        http_request = HttpRequest(
-            header=header,
-            body=body,
-            query=query,
-            form=form
-        )
+    http_request = HttpRequest(header, body, query, form, files)
 
-        # chama route da controller que foi passada
-        response = route.route(http_request)
-        return response
-
-    except Exception as exc:
-        print(exc)
-        return HttpResponse(status_code=500, body="Unexpected error")
+    # route should catch any exceptions
+    return controller.route(http_request)
     

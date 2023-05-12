@@ -7,12 +7,14 @@ class HttpRequest:
             header: Dict = None,
             body: Dict = None,
             query: Dict = None,
-            form: Dict = None
+            form: Dict = None,
+            files: Dict = None
         ):
         self.header = header
         self.body = body
         self.query = query
         self.form = form
+        self.files = files
 
     def __repr__(self) -> str:
         return f"HttpRequest (header={self.header}, body={self.body}, query={self.query})"
