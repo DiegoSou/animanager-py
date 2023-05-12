@@ -9,8 +9,46 @@
                 <div class="jumbotron p-3">
                     <h2>
                         Manage <b>Animals </b> 
-                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalregister">Register New Animal</button>   
+                        <div class="float-right">
+                            <button type="button" class="btn btn-success me-1" data-toggle="modal" data-target="#modalupload">Upload Csv File</button>
+                            <button type="button" class="btn btn-primary me-1" data-toggle="modal" data-target="#modalregister">Register New Animal</button>
+                        </div>
                     </h2>
+
+                    <!-- Modal upload file -->
+                    <div class="modal fade" id="modalupload" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Upload Csv File</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <!-- Form Upload -->
+                                    <form action="{{url_for('animals.index')}}" method="post" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control" name="file" id="file" accept=".csv" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button class="btn btn-primary btn-sm" type="submit">Upload</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
                     
                     <!-- Modal register animal -->
                     <div class="modal fade" id="modalregister" role="dialog">
@@ -22,6 +60,7 @@
                                 </div>
                                 <div class="modal-body">
 
+                                    <!-- Form Register -->
                                     <form action="{{url_for('animals.index')}}" method="post">
 
                                         <div class="form-group">
@@ -63,11 +102,10 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary btn-sm" type="submit">Save</button>
                                         </div>
 
                                     </form>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
