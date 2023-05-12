@@ -21,4 +21,13 @@ class RegisterAnimalController(RouteInterface):
                 animal_type=http_request.form["animal_type"]
             )
 
-        return HttpResponse(status_code=201, body=response["data"])
+        if http_request.files:
+            response = self.register_animal_use_case.upload_animals(
+                csv_data=http_request.files["file"]
+            )
+
+        if response["success"]:
+            return HttpResponse(status_code=201, body=response["data"])
+
+        print(response["data"])
+        return HttpResponse(status_code=500, body=response["data"])

@@ -2,7 +2,7 @@ from typing import Type
 from src.presentation.interface import RouteInterface
 from .http_models import HttpRequest, HttpResponse
 
-def flask_adapter(request: any, controller: Type[RouteInterface]) -> any:
+def flask_adapter(request: any, controller: Type[RouteInterface]) -> Type[HttpResponse]:
     """
     Adapt flask requests
     - params

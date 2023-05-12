@@ -21,4 +21,8 @@ class UpdateAnimalController(RouteInterface):
                 specie=http_request.form['specie']
             )
 
-        return HttpResponse(status_code=204, body=response["data"])
+        if response["success"]:
+            return HttpResponse(status_code=204, body=response["data"])
+
+        print(response["data"])
+        return HttpResponse(status_code=500, body=response["data"])
