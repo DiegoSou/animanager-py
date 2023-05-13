@@ -24,12 +24,12 @@ class IRegisterAnimalUseCase(ABC):
     @abstractmethod
     def upload_animals(
         self,
-        csv_data: any
+        file_data: any
     ) -> Dict[bool, List[Animals]]:
         """
         upload animals from file
         - params
-            - animals csv data
+            - animals file data
         - return
             - Dict {'success':bool, 'data':List of AnimalsModel}
         """

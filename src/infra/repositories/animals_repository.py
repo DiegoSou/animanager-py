@@ -57,7 +57,6 @@ class AnimalsRepository(AnimalsRepositoryInterface):
             specie=specie,
             animal_type=AnimalTypes(animal_type)
         )
-        
 
         db.session.add(entities)
         db.session.commit()

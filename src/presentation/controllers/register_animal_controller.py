@@ -23,7 +23,7 @@ class RegisterAnimalController(RouteInterface):
 
         if http_request.files:
             response = self.register_animal_use_case.upload_animals(
-                csv_data=http_request.files["file"]
+                file_data=http_request.files["file"]
             )
 
         if response["success"]:

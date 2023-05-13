@@ -1,5 +1,5 @@
 from typing import Dict, List, Type
-from pandas import Series, read_csv
+from pandas import read_csv, read_excel
 from src.domain.models import Animals
 from src.data.interface import AnimalsRepositoryInterface
 from src.domain.usecases import IRegisterAnimalUseCase
@@ -26,10 +26,21 @@ class RegisterAnimalUseCase(IRegisterAnimalUseCase):
             return {"success": False, "data": exc}
 
 
-    def upload_animals(self, csv_data: any) -> Dict[bool, List[Animals]]:
+    def upload_animals(self, file_data: any) -> Dict[bool, List[Animals]]:
 
         try:
-            animals_df = read_csv(csv_data)
+            extension = file_data.filename.replace(' ', '_')[-4:]
+
+            if extension == '.csv':
+                animals_df = read_csv(file_data)
+            elif (
+                extension == '.xls' or
+                extension == 'xlsx' or
+                extension == '.odf' or
+                extension == '.odt' or
+                extension == '.ods'
+            ): animals_df = read_excel(file_data)
+
             self.__format_df_to_lowercase_columns(animals_df)
 
             if (
