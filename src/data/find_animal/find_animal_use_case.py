@@ -17,11 +17,7 @@ class FindAnimalUseCase(IFindAnimalUseCase):
         ) -> Dict[bool, List[Animals]]:
 
         try:
-            response = self.repo.animals_select(
-                animal_id,
-                animal_name,
-                animal_type,
-                convert_to_model)
+            response = self.repo.animals_select(animal_id, animal_name, animal_type, convert_to_model)
 
             return {"success": True, "data": response}
         except Exception as exc:

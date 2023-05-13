@@ -16,12 +16,9 @@ class DeleteAnimalUseCase(IDeleteAnimalUseCase):
     def delete_animal(self, animal_id: str) -> Dict[bool, Animals]:
 
         try:
-            animal_old = self.find_animal.find(
-                animal_id=animal_id,
-                convert_to_model=False
-                )['data'][0]
+            animal_old = self.find_animal.find(animal_id=animal_id, convert_to_model=False)['data'][0]
 
-            response = self.repo.animals_delete(animal_old=animal_old)
+            response = self.repo.animals_delete(animal_old)
 
             return {"success": True, "data": response}
         except Exception as exc:

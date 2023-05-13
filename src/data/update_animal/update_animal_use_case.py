@@ -22,10 +22,7 @@ class UpdateAnimalUseCase(IUpdateAnimalUseCase):
         ) -> Dict[bool, Animals]:
 
         try:
-            animal_old = self.find_animal.find(
-                animal_id=animal_id,
-                convert_to_model=False
-                )['data'][0]
+            animal_old = self.find_animal.find(animal_id=animal_id, convert_to_model=False)['data'][0]
 
             response = self.repo.animals_update(
                 animal_old=animal_old,
