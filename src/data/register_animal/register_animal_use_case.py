@@ -1,4 +1,5 @@
-from typing import Dict, Type
+from typing import Dict, List, Type
+from pandas import Series, read_csv
 from src.domain.models import Animals
 from src.data.interface import AnimalsRepositoryInterface
 from src.domain.usecases import IRegisterAnimalUseCase
@@ -18,14 +19,37 @@ class RegisterAnimalUseCase(IRegisterAnimalUseCase):
         ) -> Dict[bool, Animals]:
 
         try:
-            response = self.repo.animals_register(
-                name=name,
-                sex=sex,
-                weight=weight,
-                specie=specie,
-                animal_type=animal_type
-            )
+            response = self.repo.animals_register(name, sex, weight, specie, animal_type)
 
             return {"success": True, "data": response}
         except Exception as exc:
             return {"success": False, "data": exc}
+
+
+    def upload_animals(self, csv_data: any) -> Dict[bool, List[Animals]]:
+
+        try:
+            animals_df = read_csv(csv_data)
+            self.__format_df_to_lowercase_columns(animals_df)
+
+            if (
+                'name' not in animals_df.columns or 
+                'sex' not in animals_df.columns or 
+                'animal_type' not in animals_df.columns
+            ): raise AssertionError('Required columns are missing (name, sex, animal_type)')
+
+            # se a planilha tiver colunas a mais, funcionará normalmente
+            response = self.repo.animals_bulk_register(animals_df)
+
+            return {"success": True, "data": response}
+        except Exception as exc:
+            return {"success": False, "data": exc}
+
+
+    def __format_df_to_lowercase_columns(self, df):
+        lowercase_columns = []
+
+        for col in df.columns:
+            lowercase_columns.append(col.lower())
+
+        df.columns = lowercase_columns

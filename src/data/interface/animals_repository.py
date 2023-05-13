@@ -19,6 +19,10 @@ class AnimalsRepositoryInterface(ABC):
         """register an animal record"""
 
     @abstractmethod
+    def animals_bulk_register(self, animals_data) -> List[Animals]:
+        """register a dataframe of animals"""
+
+    @abstractmethod
     def animals_update(self, animal_old, name, weight, specie) -> Animals:
         """update an old animal record"""
 

@@ -36,44 +36,73 @@ class AnimalsRepository(AnimalsRepositoryInterface):
         if not convert_to_model:
             return result_query
 
-        animals = []
-
-        for entity in result_query:
-            animals.append(
-                AnimalsModel(
-                    id=entity.id,
-                    name=entity.name,
-                    sex=entity.sex.value,
-                    weight=entity.weight,
-                    specie=entity.specie,
-                    animal_type=entity.animal_type.value
-                )
+        return [
+            AnimalsModel(
+                id=anim.id,
+                name=anim.name,
+                sex=anim.sex.value,
+                weight=anim.weight,
+                specie=anim.specie,
+                animal_type=anim.animal_type.value
             )
-        return animals
+            for anim in result_query
+        ]
 
 
     def animals_register(self, name, sex, weight, specie, animal_type) -> AnimalsModel:
-        result_insert = (
-            AnimalsEntity(
-                name=name,
-                sex=AnimalSex(sex),
-                weight=weight,
-                specie=specie,
-                animal_type=AnimalTypes(animal_type)
-            )
+        entities = AnimalsEntity(
+            name=name,
+            sex=AnimalSex(sex),
+            weight=weight,
+            specie=specie,
+            animal_type=AnimalTypes(animal_type)
         )
+        
 
-        db.session.add(result_insert)
+        db.session.add(entities)
         db.session.commit()
 
         return AnimalsModel(
-            id=result_insert.id,
-            name=result_insert.name,
-            sex=result_insert.sex.value,
-            weight=result_insert.weight,
-            specie=result_insert.specie,
-            animal_type=result_insert.animal_type.value
+            id=entities.id,
+            name=entities.name,
+            sex=entities.sex.value,
+            weight=entities.weight,
+            specie=entities.specie,
+            animal_type=entities.animal_type.value
         )
+
+    def animals_bulk_register(self, animals_data) -> List[AnimalsModel]:
+        entities = []
+
+        for idx in animals_data.index:
+
+            weight = animals_data['weight'][idx] if ('weight' in animals_data.columns) else None
+            specie = animals_data['specie'][idx] if ('specie' in animals_data.columns) else None
+
+            entities.append(
+                AnimalsEntity(
+                    name=animals_data['name'][idx],
+                    sex=AnimalSex(animals_data['sex'][idx]),
+                    weight=weight,
+                    specie=specie,
+                    animal_type=AnimalTypes(animals_data['animal_type'][idx])
+                )
+            )
+
+        db.session.add_all(entities)
+        db.session.commit()
+
+        return [
+            AnimalsModel(
+                id=anim.id,
+                name=anim.name,
+                sex=anim.sex.value,
+                weight=anim.weight,
+                specie=anim.specie,
+                animal_type=anim.animal_type.value
+            )
+            for anim in entities
+        ]
 
     def animals_update(self, animal_old, name, weight, specie) -> AnimalsModel:
         animal_old.name = name

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict
+from typing import Dict, List
 from src.domain.models import Animals
 
 class IRegisterAnimalUseCase(ABC):
@@ -19,4 +19,17 @@ class IRegisterAnimalUseCase(ABC):
             - animal informations
         - return
             - Dict {'success':bool, 'data':AnimalsModel}
+        """
+
+    @abstractmethod
+    def upload_animals(
+        self,
+        csv_data: any
+    ) -> Dict[bool, List[Animals]]:
+        """
+        upload animals from file
+        - params
+            - animals csv data
+        - return
+            - Dict {'success':bool, 'data':List of AnimalsModel}
         """
