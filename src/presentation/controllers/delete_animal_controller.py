@@ -21,5 +21,4 @@ class DeleteAnimalController(RouteInterface):
         if response["success"]:
             return HttpResponse(status_code=200, body=response["data"])
 
-        print(response["data"])
-        return HttpResponse(status_code=500, body=response["data"])
+        return HttpResponse(status_code=500, body=response["error"])

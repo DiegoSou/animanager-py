@@ -24,5 +24,4 @@ class UpdateAnimalController(RouteInterface):
         if response["success"]:
             return HttpResponse(status_code=204, body=response["data"])
 
-        print(response["data"])
-        return HttpResponse(status_code=500, body=response["data"])
+        return HttpResponse(status_code=500, body=response["error"])

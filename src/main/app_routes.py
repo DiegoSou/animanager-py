@@ -1,4 +1,4 @@
-from flask import jsonify, request, Blueprint, redirect, render_template, flash, url_for
+from flask import json, request, Blueprint, redirect, render_template, flash, url_for
 from src.main.composers import (
     find_animal_composite,
     register_animal_composite,
@@ -18,7 +18,7 @@ def index():
     if response.status_code < 300:
         return render_template('animals_index.html', animals_data = response.body)
 
-    return jsonify({
+    return json.dumps({
         "error": {
             "status": response.status_code,
             "title": response.body
@@ -36,7 +36,7 @@ def register():
         flash("Animal registered on database")
         return redirect(url_for("animals.index"))
 
-    return jsonify({
+    return json.dumps({
         "error": {
             "status": response.status_code,
             "title": response.body
@@ -54,7 +54,7 @@ def update():
         flash("Record updated")
         return redirect(url_for("animals.index"))
 
-    return jsonify({
+    return json.dumps({
         "error": {
             "status": response.status_code,
             "title": response.body
@@ -72,7 +72,7 @@ def delete():
         flash("Record deleted")
         return redirect(url_for("animals.index"))
 
-    return jsonify({
+    return json.dumps({
         "error": {
             "status": response.status_code,
             "title": response.body

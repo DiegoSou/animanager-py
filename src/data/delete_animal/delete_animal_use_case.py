@@ -22,4 +22,4 @@ class DeleteAnimalUseCase(IDeleteAnimalUseCase):
 
             return {"success": True, "data": response}
         except Exception as exc:
-            return {"success": False, "data": exc}
+            return {"success": False, "error": str(exc)}

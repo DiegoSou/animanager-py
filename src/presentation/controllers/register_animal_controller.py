@@ -29,5 +29,4 @@ class RegisterAnimalController(RouteInterface):
         if response["success"]:
             return HttpResponse(status_code=201, body=response["data"])
 
-        print(response["data"])
-        return HttpResponse(status_code=500, body=response["data"])
+        return HttpResponse(status_code=500, body=response["error"])
