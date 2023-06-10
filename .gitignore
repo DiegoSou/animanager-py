@@ -3,6 +3,5 @@ venv
 exemplos
 .vscode
 .pylintrc
-.env
 routes.py
 instance
