@@ -23,7 +23,7 @@ class RegisterAnimalUseCase(IRegisterAnimalUseCase):
 
             return {"success": True, "data": response}
         except Exception as exc:
-            return {"success": False, "data": exc}
+            return {"success": False, "error": str(exc)}
 
 
     def upload_animals(self, file_data: any) -> Dict[bool, List[Animals]]:
