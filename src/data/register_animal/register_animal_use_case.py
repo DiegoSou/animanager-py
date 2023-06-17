@@ -33,15 +33,11 @@ class RegisterAnimalUseCase(IRegisterAnimalUseCase):
 
             if extension == '.csv':
                 animals_df = read_csv(file_data)
-            elif (
-                extension == '.xls' or
-                extension == 'xlsx' or
-                extension == '.odf' or
-                extension == '.odt' or
-                extension == '.ods'
-            ): animals_df = read_excel(file_data)
+            elif extension in ('.xls', 'xlsx', '.odf', '.odt', '.ods'):
+                animals_df = read_excel(file_data)
 
-            self.__format_df_to_lowercase_columns(animals_df)
+            # colunas para lowercase
+            animals_df.rename(columns=str.lower, inplace=True)
 
             if (
                 'name' not in animals_df.columns or 
@@ -55,12 +51,3 @@ class RegisterAnimalUseCase(IRegisterAnimalUseCase):
             return {"success": True, "data": response}
         except Exception as exc:
             return {"success": False, "error": str(exc)}
-
-
-    def __format_df_to_lowercase_columns(self, df):
-        lowercase_columns = []
-
-        for col in df.columns:
-            lowercase_columns.append(col.lower())
-
-        df.columns = lowercase_columns
