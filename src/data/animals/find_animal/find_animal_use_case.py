@@ -1,7 +1,7 @@
 from typing import Type, Dict, List
 from src.domain.models import Animals
 from src.domain.usecases import IFindAnimalUseCase
-from src.data.interface import AnimalsRepositoryInterface
+from src.data.animals.interface import AnimalsRepositoryInterface
 
 class FindAnimalUseCase(IFindAnimalUseCase):
 

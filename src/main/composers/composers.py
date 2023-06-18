@@ -4,7 +4,7 @@ from src.presentation.controllers import (
     UpdateAnimalController,
     DeleteAnimalController
 )
-from src.data import (
+from src.data.animals import (
     FindAnimalUseCase,
     RegisterAnimalUseCase,
     UpdateAnimalUseCase,

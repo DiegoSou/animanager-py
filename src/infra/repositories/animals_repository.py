@@ -1,4 +1,4 @@
-from src.data.interface import AnimalsRepositoryInterface
+from src.data.animals.interface import AnimalsRepositoryInterface
 
 from src.main.app_config import db
 from src.infra.entities import Animals as AnimalsEntity

@@ -1,7 +1,7 @@
 from typing import Dict, List, Type
 from pandas import read_csv, read_excel
 from src.domain.models import Animals
-from src.data.interface import AnimalsRepositoryInterface
+from src.data.animals.interface import AnimalsRepositoryInterface
 from src.domain.usecases import IRegisterAnimalUseCase
 
 class RegisterAnimalUseCase(IRegisterAnimalUseCase):

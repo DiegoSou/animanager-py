@@ -1,5 +1,5 @@
 from typing import Type, Dict
-from src.data.interface import AnimalsRepositoryInterface
+from src.data.animals.interface import AnimalsRepositoryInterface
 from src.domain.models import Animals
 from src.domain.usecases import IFindAnimalUseCase, IUpdateAnimalUseCase
 
