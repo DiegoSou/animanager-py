@@ -2,16 +2,16 @@ from abc import ABC
 from functools import wraps
 from .call_method import CallMethodAssistant
 
-class FactoryDecorator(ABC):
-    """(ABC) Provém decorador factory_method e atributo mapping que registra cada método decorado"""
+class ABCFactory(ABC):
+    """Adiciona um decorador factory_mtd e atributo mapping que debugga cada método decorado"""
     mapping = {}
 
     @classmethod
-    def factory_method(cls, func) -> callable:
+    def factory_mtd(cls, func) -> callable:
         """Define um método da factory"""
 
         def intermediaria(*args, **kwargs):
-            called_func = cls.__call_method(func)
+            called_func = cls.__call_mtd(func)
             result = called_func(*args, **kwargs)
 
             if func.__name__ not in cls.mapping:
@@ -23,7 +23,7 @@ class FactoryDecorator(ABC):
 
 
     @classmethod
-    def __call_method(cls, func):
+    def __call_mtd(cls, func):
         """Chama uma função aplicando o decorador de chamadas"""
         @CallMethodAssistant()
         @wraps(func)

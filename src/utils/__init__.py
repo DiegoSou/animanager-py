@@ -1,1 +1,1 @@
-from .factory_decorator import FactoryDecorator
+from .factory_decorator import ABCFactory
