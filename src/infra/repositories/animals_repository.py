@@ -1,12 +1,14 @@
-from typing import List
-from src.domain.models import Animals as AnimalsModel
-from src.infra.entities import AnimalSex, AnimalTypes
-from src.infra.entities import Animals as AnimalsEntity
 from src.data.interface import AnimalsRepositoryInterface
 
 from src.main.app_config import db
+from src.infra.entities import Animals as AnimalsEntity
+from src.infra.interface import FlaskEntityFactory as EntityFactoryInterface
 
 class AnimalsRepository(AnimalsRepositoryInterface):
+
+    def __init__(self, entity_factory: EntityFactoryInterface):
+        self.animals_entity_factory = entity_factory
+
 
     def animals_select(
             self,
@@ -14,7 +16,7 @@ class AnimalsRepository(AnimalsRepositoryInterface):
             animal_name,
             animal_type,
             convert_to_model
-        ) -> List[AnimalsModel]:
+        ):
 
         if animal_id:
             result_query = [AnimalsEntity.query.filter_by(id=animal_id).first()]
@@ -33,77 +35,39 @@ class AnimalsRepository(AnimalsRepositoryInterface):
 
         else: result_query = AnimalsEntity.query.all()
 
-        if not convert_to_model:
-            return result_query
-
-        return [
-            AnimalsModel(
-                id=anim.id,
-                name=anim.name,
-                sex=anim.sex.value,
-                weight=anim.weight,
-                specie=anim.specie,
-                animal_type=anim.animal_type.value
-            )
-            for anim in result_query
-        ]
+        return (
+            self.animals_entity_factory.buildModelListByEntityList(result_query)
+            if convert_to_model
+            else
+            result_query
+        )
 
 
-    def animals_register(self, name, sex, weight, specie, animal_type) -> AnimalsModel:
-        entities = AnimalsEntity(
+    def animals_register(self, name, sex, weight, specie, animal_type):
+        entity = self.animals_entity_factory.buildEntityByKwargs(
             name=name,
-            sex=AnimalSex(sex),
+            sex=sex,
             weight=weight,
             specie=specie,
-            animal_type=AnimalTypes(animal_type)
+            animal_type=animal_type
         )
 
-        db.session.add(entities)
+        db.session.add(entity)
         db.session.commit()
 
-        return AnimalsModel(
-            id=entities.id,
-            name=entities.name,
-            sex=entities.sex.value,
-            weight=entities.weight,
-            specie=entities.specie,
-            animal_type=entities.animal_type.value
-        )
+        return self.animals_entity_factory.buildModelInstanceByEntity(entity)
 
-    def animals_bulk_register(self, animals_data) -> List[AnimalsModel]:
-        entities = []
 
-        for idx in animals_data.index:
-
-            weight = animals_data['weight'][idx] if ('weight' in animals_data.columns) else None
-            specie = animals_data['specie'][idx] if ('specie' in animals_data.columns) else None
-
-            entities.append(
-                AnimalsEntity(
-                    name=animals_data['name'][idx],
-                    sex=AnimalSex(animals_data['sex'][idx]),
-                    weight=weight,
-                    specie=specie,
-                    animal_type=AnimalTypes(animals_data['animal_type'][idx])
-                )
-            )
+    def animals_bulk_register(self, animals_data):
+        entities = self.animals_entity_factory.buidlEntityListByKwargsList(animals_data)
 
         db.session.add_all(entities)
         db.session.commit()
 
-        return [
-            AnimalsModel(
-                id=anim.id,
-                name=anim.name,
-                sex=anim.sex.value,
-                weight=anim.weight,
-                specie=anim.specie,
-                animal_type=anim.animal_type.value
-            )
-            for anim in entities
-        ]
+        return self.animals_entity_factory.buildModelListByEntityList(entities)
 
-    def animals_update(self, animal_old, name, weight, specie) -> AnimalsModel:
+
+    def animals_update(self, animal_old, name, weight, specie):
         animal_old.name = name
         animal_old.weight = weight
         animal_old.specie = specie
@@ -111,24 +75,11 @@ class AnimalsRepository(AnimalsRepositoryInterface):
         db.session.add(animal_old)
         db.session.commit()
 
-        return AnimalsModel(
-            id=animal_old.id,
-            name=animal_old.name,
-            sex=animal_old.sex.value,
-            weight=animal_old.weight,
-            specie=animal_old.specie,
-            animal_type=animal_old.animal_type.value
-        )
+        return self.animals_entity_factory.buildModelInstanceByEntity(animal_old)
 
-    def animals_delete(self, animal_old) -> AnimalsModel:
+
+    def animals_delete(self, animal_old):
         db.session.delete(animal_old)
         db.session.commit()
 
-        return AnimalsModel(
-            id=animal_old.id,
-            name=animal_old.name,
-            sex=animal_old.sex.value,
-            weight=animal_old.weight,
-            specie=animal_old.specie,
-            animal_type=animal_old.animal_type.value
-        )
+        return self.animals_entity_factory.buildModelInstanceByEntity(animal_old)

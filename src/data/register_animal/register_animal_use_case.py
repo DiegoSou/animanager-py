@@ -43,10 +43,10 @@ class RegisterAnimalUseCase(IRegisterAnimalUseCase):
                 'name' not in animals_df.columns or 
                 'sex' not in animals_df.columns or 
                 'animal_type' not in animals_df.columns
-            ): raise AssertionError('Required columns are missing (name, sex, animal_type)')
+            ):
+                raise AssertionError('Required columns are missing (name, sex, animal_type)')
 
-            # se a planilha tiver colunas a mais, funcionará normalmente
-            response = self.repo.animals_bulk_register(animals_df)
+            response = self.repo.animals_bulk_register(animals_df.to_dict(orient='records'))
 
             return {"success": True, "data": response}
         except Exception as exc:
