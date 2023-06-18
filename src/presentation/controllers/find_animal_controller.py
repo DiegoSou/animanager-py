@@ -20,11 +20,13 @@ class FindAnimalController(RouteInterface):
             animal_id = http_request.query['id'] if 'id' in query_keys else None
             animal_name = http_request.query['name'] if 'name' in query_keys else None
             animal_type = http_request.query['animal_type'] if 'animal_type' in query_keys else None
+            export = http_request.query['export'] if 'export' in query_keys else None
 
             response = self.find_animal_use_case.find(
                 animal_id=animal_id,
                 animal_name=animal_name,
-                animal_type=animal_type
+                animal_type=animal_type,
+                export=export
             )
 
         if response["success"]:

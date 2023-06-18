@@ -10,13 +10,55 @@
                     <h2>
                         Manage <b>Animals </b> 
                         <div class="float-right">
-                            <button type="button" class="btn btn-success me-1" data-toggle="modal" data-target="#modalupload">Upload File</button>
+                            <button type="button" class="btn btn-success me-1" data-toggle="modal" data-target="#modalexport">Export</button>
+                            <button type="button" class="btn btn-success me-1" data-toggle="modal" data-target="#modalimport">Import</button>
                             <button type="button" class="btn btn-primary me-1" data-toggle="modal" data-target="#modalregister">Register New Animal</button>
                         </div>
                     </h2>
 
-                    <!-- Modal upload file -->
-                    <div class="modal fade" id="modalupload" role="dialog">
+                    <!-- Modal export -->
+                    <div class="modal fade" id="modalexport" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Export as File</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <!-- Form Upload -->
+                                    <form action="{{url_for('animals.index')}}" method="get" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <fieldset style="width: fit-content; margin-top: 0.5rem">
+                                                <span>Export as:</span>
+                            
+                                                <input type="radio" name="export" id="export_csv" value="csv" checked>
+                                                <label for="export_csv">csv</label>
+
+                                                <input type="radio" name="export" id="export_excel" value="excel">
+                                                <label for="export_excel">excel</label>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button class="btn btn-primary btn-sm" type="submit">Generate</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Modal import file -->
+                    <div class="modal fade" id="modalimport" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
 
@@ -26,7 +68,7 @@
                                 <div class="modal-body">
 
                                     <!-- Form Upload -->
-                                    <form action="{{url_for('animals.index')}}" method="post" enctype="multipart/form-data">
+                                    <form action="{{url_for('animals.register')}}" method="post" enctype="multipart/form-data">
 
                                         <div class="form-group">
                                             <div class="mb-3">
@@ -61,7 +103,7 @@
                                 <div class="modal-body">
 
                                     <!-- Form Register -->
-                                    <form action="{{url_for('animals.index')}}" method="post">
+                                    <form action="{{url_for('animals.register')}}" method="post">
 
                                         <div class="form-group">
                                             <label>Animal Name</label>

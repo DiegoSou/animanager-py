@@ -10,6 +10,7 @@ class IFindAnimalUseCase(ABC):
         animal_id: str = None,
         animal_name: str = None,
         animal_type: str = None,
+        export: str = None,
         convert_to_model: bool = True
     ) -> Dict[bool, List[Animals]]:
         """
@@ -18,6 +19,8 @@ class IFindAnimalUseCase(ABC):
             - animal_id: get by id
             - animal_name: get by name
             - animal_type: get by animal type
+            - export: get animals file
+            - convert_to_model: choose if not to convert
         - return
             - Dict {'success':bool, 'data':List[AnimalsModel or AnimalsEntity]}
         """
